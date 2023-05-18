@@ -1,0 +1,7 @@
+body {
+    width: 100vw;
+    display: row;
+    justify-content: center;
+    background-color: black;
+    overflow-x: hidden;
+}

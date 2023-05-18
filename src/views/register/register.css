@@ -1,0 +1,27 @@
+.suscription-selector {
+    width: 260px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.register-container {
+    width: 500px;
+    height: 550px;
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.error-message {
+    width: 260px;
+    font-size: 12px;
+    text-align: left;
+    color: #df7204;
+}

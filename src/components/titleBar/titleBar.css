@@ -1,0 +1,59 @@
+.title-bar{
+    background:linear-gradient(to top, black, #E50914);
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.right-items{
+    display: flex;
+    flex-direction: row;
+    padding-right: 20px;
+}
+
+.right-items button:hover{
+    cursor: pointer;
+}
+
+.title-bar h1{
+    color: white;
+    font-size: 24px;
+    padding-left: 20px;
+}
+
+.title-bar button{
+    background-color: transparent;
+    border: transparent;
+    width: 40px;
+    height: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.title-bar button img {
+    max-width:100%;
+    max-height:100%;
+}
+
+.user-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info h1{
+    color: white;
+    font-size: 20px;
+    padding-left: 0;
+    margin:0;
+    cursor: pointer;
+}
+
+.user-info p{
+    color: white;
+    font-size: 14px;
+    align-items: center;
+    margin:0;
+    cursor: pointer;
+}
