@@ -3,6 +3,23 @@ import background from '../../assets/background-login.png'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
+const authenticate = async (user, password) => {
+    const url = 'http://localhost:5000/user-auth/';
+    const response = await fetch(url, {
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "username": user,
+            "password": password
+        })
+    })
+
+    const responseJson = await response.json()
+    return await responseJson
+}
+
 const Login = () => {
 
     const divStyle = {
@@ -21,12 +38,22 @@ const Login = () => {
         border: '1px solid #df7204'
     }
 
-    const navigateHome = () => {
+    const navigateHome = async () => {
         if (user === '' || password === '') {
             setError('Ingresa todos los campos')
         }
         else {
-            navigation('/home')
+            const response = await authenticate(user, password)
+            
+            console.log(response)
+            if (response.status === 'error') {
+                setError('Usuario o contraseña incorrectos')
+            }
+            else {
+                window.localStorage.setItem('user', user)
+                console.log(window.localStorage.getItem('user'))
+                navigation('/home')
+            }
         }
     }
 

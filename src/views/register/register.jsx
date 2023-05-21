@@ -3,6 +3,25 @@ import background from '../../assets/background-login.png'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
+const registerUser = async (user, password, age, subscription) => {
+    const url = 'http://localhost:5000/user/';
+    const response = await fetch(url, {
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "username": user,
+            "password": password,
+            "age": age,
+            "subscription": subscription
+        })
+    })
+
+    const responseJson = await response.json()
+    return await responseJson
+}
+
 const Register = () => {
 
     const divStyle = {
@@ -61,12 +80,23 @@ const Register = () => {
         setSelectedValue(event.target.value)
     }
 
-    const register = () => {
+    const register = async () => {
         if (user === '' || password === '' || age === '' || selectedValue === 'Selecciona tu tipo de suscripción') {
             setError('Ingresa todos los campos')
         }
         else {
-            console.log('siu')
+            const response = await registerUser(user, password, age, selectedValue)
+            console.log(response)
+            if (response.status === 'User already exists') {
+                setError('El usuario ya existe')
+            }
+            else if (response.status === 'error') {
+                setError('Error al registrar el usuario')
+            }
+            else {
+                window.localStorage.setItem('user', user)
+                navigation('/home')
+            }
         }
     }
 
@@ -82,8 +112,8 @@ const Register = () => {
                     <input style={age === '' ? borderStyle : {}} onChange={handleAgeChange} className='login-input' placeholder='Ingresa tu edad'></input>
                     <select style={selectedValue === 'Selecciona tu tipo de suscripción' ? borderStyle : {}} onChange={handleSelectorChange} className='suscription-selector'>
                         <option value="" disabled selected>Selecciona tu tipo de suscripción</option>
-                        <option value="Basica">Básica</option>
-                        <option value="Estandar">Estándar</option>
+                        <option value="Free">Free</option>
+                        <option value="Basic">Basic</option>
                         <option value="Premium">Premium</option>
                     </select>
                     { error && <div className='error-message'>{error}</div>}

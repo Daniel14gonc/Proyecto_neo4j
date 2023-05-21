@@ -1,0 +1,230 @@
+
+.containerhome{
+  background-color: #303030;
+  width: 100vw;
+  height: 110vh;
+}
+
+.headercito{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.52) 30%, rgba(0, 0, 0, 0));
+  position: fixed;
+  top: 0px;
+}
+
+.contentFilms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.userbubble{
+  background-image: url('../assets/avatar.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.logo-netflix {
+  background-image: url('../assets/logo.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 120px;
+  height: 60px;
+}
+
+.navegable{
+  width: 70%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.navegable *{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  color: white;
+}
+
+.navegable *:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.navegable div:nth-child(1){
+  margin-left: 20px;
+}
+
+.lupa{
+  background-image: url('../assets/lupa.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.options{
+  background-image: url('../assets/lineas.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin-left: 35px;
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.superDiv {
+  height: 600px;
+  width: 100vw;
+  background: black;
+  display: flex;
+}
+
+.superFilm {
+  background-color: white;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  margin-left: 100px;
+  width: 250px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.play{
+  background: url('../assets/play.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  background-position: 50%;
+  margin-left: 30px;
+}
+
+.pelicula {
+  height: 150px;
+  width: 250px;
+  background-color: gray;
+  margin: 5px;
+  display: inline-flex;
+  align-items: flex-end;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.carrousel {
+  display: flex;
+  flex-direction: column;
+  height: 225px;
+  width: 95%;
+  align-self: flex-start;
+  margin-left: 75px;
+  margin-top: 30px;
+}
+
+.containMovies{
+  width: 95%;
+  height: 300px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.explorar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 80px;
+}
+
+.favorite{
+  background: url('../assets/faved.png');
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  border: 0px;
+  background-size: 100%;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.favorite2{
+  background: url('../assets/favoritito.png');
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  border: 0px;
+  background-size: 100%;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.switch {
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.dropdown {
+  background-color: black;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin-top: 290px;
+  width: 125px;
+  border-radius: 10px;
+  opacity: 0.9;
+}
+
+.loading {
+  height: 80px;
+  width: 80px;
+  background-image: url('../assets/loading2.gif');
+  background-size: '100% 100%';
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.container2 {
+  background-color: #303030;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.busqueda {
+  margin-right: 40px;
+  width: 250px;
+  height: 30px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  margin-left: -300px;
+}

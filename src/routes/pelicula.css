@@ -1,0 +1,115 @@
+.containerPelicula {
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to bottom, #020C1F 30%, #05183C);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerPelicula {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.headerPelicula div:only-child {
+    background-image: url('../assets/atras.png');
+    background-size: 100% 100%;
+    width: 35px;
+    height: 35px;
+    background-repeat: no-repeat;
+    margin-left: 60px;
+    cursor:pointer;
+}
+
+.filmHolder {
+    height: 400px;
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filmHolder div:only-child {
+    background-image: url('../assets/play1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 100px;
+}
+
+.buttonholderc{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 800px;
+    height: 75px;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.like, .completado, .like2{
+    cursor: pointer;
+}
+
+.liked {
+    background-image: url('../assets/faved.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    
+}
+.disliked{
+    background-image: url('../assets/favoritito.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.completado{
+    background-color: rgb(39, 157, 181);
+    border-radius: 10px;
+    border: 0px;
+    width: 150px;
+    height: 60px;
+}
+
+.cerrar{
+    height: 20px;
+    width: 20px;
+}
+.modal-content{
+    height: 400px;
+    width: 600px;
+    display: flex;
+    position: absolute;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+}
+.modal-container{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background-color: black;
+    opacity: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cualq{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 999;
+}
