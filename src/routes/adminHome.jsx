@@ -8,16 +8,6 @@ const Header = ({onChange, desp, Cerrarsesion, opt}) =>{
     const navigate = useNavigate()
     return(
         <div className='adminHeader'>
-            <div style={{marginRight:'10px', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                <div  className='adminbubble' onClick={onChange}></div>
-                {desp && 
-                <div className='admindropdown'>
-                    <div className='adminswitch' style={{color:'#4e91dd'}} >{JSON.parse(window.sessionStorage.getItem('user')).correo}</div>
-                    <div className='adminswitch' style={{color:'#4e91dd'}}    onClick={() => {navigate('/newAdmin')}} >Crear administrador</div>
-                    <div style={{color:'red'}} className='adminswitch' onClick={Cerrarsesion}>Cerrar sesión</div>
-                </div>
-                }
-            </div>
             <div className='pestanas'>
                 <div onClick={()=>opt('cuentas')}>
                     Cuentas  

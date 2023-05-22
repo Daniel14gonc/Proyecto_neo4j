@@ -58,7 +58,7 @@ const fetchSeguirV = async() =>{
 }
 
 const fetchExplorar = async() =>{
-  const url ='http://127.0.0.1:5000/api/all-contenido'
+  const url ='http://127.0.0.1:5000/all-movies/'
   const response = await fetch(url, {
     method:'GET',
   })
@@ -79,7 +79,7 @@ const fetchFavoritos = async() =>{
 }
 
 
-const Header = ({ onChange, pelis, buscar, menu , click, change, onClick, switchProfile, cerrarSesion, adminCuent , busqueda}) =>{
+const Header = ({ onChange, pelis, buscar, menu , click, change, onClick, deleteAccount, cerrarSesion, adminCuent , busqueda}) =>{
   const nombre = window.localStorage.getItem('user')
   return(
     <div className='headercito'>
@@ -89,8 +89,8 @@ const Header = ({ onChange, pelis, buscar, menu , click, change, onClick, switch
         <div className='dropdown'>
           <div className='switch' style={{color:'#4e91dd'}}>{nombre}</div>
           <div className='switch' onClick={adminCuent}>Administrar cuenta</div>
-          <div className='switch' onClick={switchProfile}>Cambiar perfil</div>
-          <div style={{color:'red'}} className='switch' onClick={cerrarSesion}>Cerrar sesión</div>
+          <div className='switch' onClick={cerrarSesion}>Cerrar sesión</div>
+          <div style={{color:'red'}} className='switch' onClick={deleteAccount}>Eliminar cuenta</div>
         </div>
         }
       </div>
@@ -150,7 +150,7 @@ const Carrousel = ({contenido, nombre, imagen}) => {
 
     return (
       <div className='carrousel'>
-        <div style={{color:'white', fontSize:'20px'}}>{nombre}</div>
+        <div style={{color:'white', fontSize:'18px'}}>{nombre}</div>
         <div className='containMovies'>
           <Pelicula go={false} imagen = '../../assets/nocontent.png' isContent={'si'}/>
         </div>
@@ -160,7 +160,7 @@ const Carrousel = ({contenido, nombre, imagen}) => {
 
     return (
       <div className='carrousel'>
-        <div style={{color:'white', fontSize:'20px'}}>{nombre}</div>
+        <div style={{color:'white', fontSize:'18px'}}>{nombre}</div>
         <div className='containMovies'>
           {
             contenido.map((elemento) => {
@@ -185,7 +185,7 @@ const Explorar = ({ allMovies }) => {
         <div className='explorar'>
           {
             allMovies.map((element, index) => {
-              return (<Pelicula go={true} nombre={element.nombre} link={element.link} imagen={element.imagen} />)
+              return (<Pelicula go={true} nombre={element.title} link={element.link} imagen={element.image} />)
             })
           }
         </div>
@@ -248,9 +248,10 @@ const Home = () =>{
   const [verdeNuevo, setVerdenuevo] = useState([])
   const [random, setRandom] = useState([])
   const [seguirV, setSeguirV] = useState([])
-  const [menu, setMenu] = useState([{nombre:'Inicio', clicked: true}, {nombre:'Explorar', clicked: false}, 
-                                      {nombre:'Mi lista', clicked: false}])
+  // const [menu, setMenu] = useState([{nombre:'Inicio', clicked: true}, {nombre:'Explorar', clicked: false}, {nombre:'Mi lista', clicked: false}])
   
+  const [menu, setMenu] = useState([{nombre:'Inicio', clicked: true}, {nombre:'Explorar', clicked: false}])
+
   const [explorar, setExplorar] = useState([]) 
   const [favorito, setFavorito] = useState([])     
   const [change, setChange] = useState(false)    
@@ -278,7 +279,6 @@ const Home = () =>{
 
   const adminCuent = () =>{
     navigate('/adminCuenta')
-
   }
 
   const changeProfile = () => {
@@ -327,6 +327,19 @@ const Home = () =>{
 
     const responseJson = await response.json()
     window.sessionStorage.clear()
+    navigate('/')
+  }
+
+  const deleteAccount = async() => { 
+    const user = window.localStorage.getItem('user')
+    const url = 'http://localhost:5000/user/'
+    const response = await fetch(url, {
+      method:'DELETE',
+      headers:{
+          'Content-Type': 'application/json',
+          'user': user
+      }
+    })
     navigate('/')
   }
 
@@ -385,8 +398,8 @@ const Home = () =>{
         const response3 = await fetchSeguirV()
         setSeguirV(response3)
   
-        // const response4 = await fetchExplorar()
-        // setExplorar(response4)
+        const response4 = await fetchExplorar()
+        setExplorar(response4)
   
         // const response5 = await fetchFavoritos()
         // setFavorito(response5)
@@ -413,14 +426,21 @@ const Home = () =>{
 
   return(
     <div className="containerhome">
-      <Header onChange={onChange} pelis = {fetchPeliculas} buscar={buscar} busqueda={busqueda} menu={menu} click={click} change={change} onClick={changeProfile} switchProfile={switchProfile} cerrarSesion={cerrarSesion} adminCuent={adminCuent}/>
+      <Header onChange={onChange} pelis = {fetchPeliculas} buscar={buscar} busqueda={busqueda} menu={menu} click={click} change={change} onClick={changeProfile} deleteAccount={deleteAccount} cerrarSesion={cerrarSesion} adminCuent={adminCuent}/>
       <div className='contentFilms'>
+        {
+          menu[0].clicked &&
           <Fragment>
             <BigFilm image={random.image} link={random.link} nombre={random.Title}/>
             <Carrousel nombre = 'Sugerido' contenido = {sugerido}/>
             <Carrousel nombre = 'Seguir viendo' contenido = {seguirV}/>
             <Carrousel nombre = 'Ver nuevamente' contenido = {verdeNuevo}/>
           </Fragment>
+        }
+        {
+          menu[1].clicked && 
+          <Explorar allMovies={explorar} />
+        }
         
       </div>
     </div>

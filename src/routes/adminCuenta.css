@@ -1,5 +1,5 @@
 .containeradCuenta{
-    background-color: #05183C;
+    background-color: #000000;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -16,12 +16,12 @@
     height: 60px;
     display: flex;
     align-items: center;
-    background: linear-gradient(to bottom, #020C1F 30%, #05183C);
+    background: linear-gradient(to bottom, #000000 0.5%, #000000);
     position: fixed;
     top: 0px;
   }
   .regreso{
-    background-image: url('../../assets/atras.png');
+    background-image: url('../assets/atras.png');
     background-size: 100%;
     background-repeat: no-repeat;
     margin-left: 20px;
@@ -30,7 +30,7 @@
     cursor: pointer;
   }
   .fondo{
-    background-color: rgb(224, 218, 218);
+    background-color: #303030;
     width: 600px;
     height: 550px;
     display: flex;
@@ -41,12 +41,11 @@
     margin-top: 50px;
   }
   .adCuenta{
-    background-image: url('../../assets/perfil.png');
+    background-image: url('../assets/avatar.png');
     background-size: 100%;
     background-repeat: no-repeat;
-    width: 250px;
-    height: 250px;
-    border-radius: 200px;
+    width: 210px;
+    height: 210px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,8 +72,8 @@
     flex: 1;
 }
 .adConfirmar{
-    background-color:white;
-    width: 150px;
+    background-color:#E50914;
+    width: fit-content;
     height: 45px;
     border-radius: 15px;
     font-size: 16px;

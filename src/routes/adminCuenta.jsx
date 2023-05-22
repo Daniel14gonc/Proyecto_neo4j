@@ -4,16 +4,19 @@ import './adminCuenta.css'
 
 const AdminCuenta = () => {
   const navigate = useNavigate()
-  const url = 'http://127.0.0.1:5000/api/ajustecuenta'
+  const url = 'http://localhost:5000/my-account/'
+
 
   const [tipo, setTipo] = useState(null)
   const [tipoactivo, setTipoactivo] = useState([false, false, false])
 
   const fetchTipo = async() =>{
+    const user = window.localStorage.getItem('user')
+
     const response = await fetch(url, {
       method:'GET',
       headers: {
-        'correo' : JSON.parse( window.sessionStorage.getItem('user')).correo
+        'username' : user
       }
     })
         
@@ -24,14 +27,16 @@ const AdminCuenta = () => {
   
 
   const fetchNuevoTipo = async() =>{
+    const user = window.localStorage.getItem('user')
+
     await fetch(url, {
       method: 'PUT',
       headers: {
         'Content-Type':'application/json'
       },
       body: JSON.stringify({
-        'tipo': tipo,
-        'correo': JSON.parse(window.sessionStorage.getItem('user')).correo,
+        'suscription': tipo,
+        'username': user,
       })
     })
     navigate('/home')
@@ -46,15 +51,15 @@ const AdminCuenta = () => {
   }
 
   const handleButtons = (name) => {
-    if(name === 'basica'){
+    if(name === 'Free'){
       setTipoactivo([true , false, false])
       setTipo(name) 
     }
-    if(name === 'estandar'){
+    if(name === 'Basic'){
       setTipoactivo([false , true, false])
       setTipo(name) 
     }
-    if(name === 'avanzada') {
+    if(name === 'Premium') {
       setTipoactivo([false , false, true])
       setTipo(name) 
     }
@@ -63,11 +68,11 @@ const AdminCuenta = () => {
   useEffect( () => { async function cambioTipo() { 
       
     const response = await fetchTipo()
-    await setTipo(response.tipo)
+    await setTipo(response.subscription)
     
-    if(response['tipo'] ==='basica'){
+    if(response['subscription'] ==='Free'){
       setTipoactivo([true, false, false])
-    }else if(response['tipo'] ==='estandar'){
+    }else if(response['subscription'] ==='Basic'){
       setTipoactivo([false, true, false])
     }else{
       setTipoactivo([false, false, true])
@@ -76,7 +81,7 @@ const AdminCuenta = () => {
   cambioTipo()
 }, [])
 
-  const cuenta = JSON.parse(window.sessionStorage.getItem('user')).correo
+  const cuenta = window.localStorage.getItem('user')
 
     return(
         <div className="containeradCuenta">
@@ -88,24 +93,21 @@ const AdminCuenta = () => {
             <div className='accountholder1'>
               <div className='acctype1'>
                 <div>
-                  <input type = 'radio' id = 'basica' value='basica' checked = {tipoactivo[0]} onChange = {handleRadio} />
-                  <label for = 'basica'>Basica</label> 
+                  <input type = 'radio' id = 'Free' value='Free' checked = {tipoactivo[0]} onChange = {handleRadio} />
+                  <label htmlFor = 'Free'>Free</label> 
                 </div>
-                <a>1 perfil</a>
               </div>
               <div className='acctype1'>
                 <div>
-                  <input type = 'radio' id = 'estandar' value='estandar' checked = {tipoactivo[1]} onChange = {handleRadio}/>
-                  <label for = 'estandar'>Estandar</label>
+                  <input type = 'radio' id = 'Basic' value='Basic' checked = {tipoactivo[1]} onChange = {handleRadio}/>
+                  <label htmlFor = 'Basic'>Basic</label>
                 </div>
-                <a>4 perfiles</a>
               </div>
               <div className='acctype1'>
                 <div>
-                  <input type = 'radio' id = 'avanzada' value='avanzada' checked = {tipoactivo[2]} onChange = {handleRadio}/>
-                  <label for = 'acanzada'>Avanzada</label>
+                  <input type = 'radio' id = 'Premium' value='Premium' checked = {tipoactivo[2]} onChange = {handleRadio}/>
+                  <label htmlFor = 'Premium'>Premium</label>
                 </div>
-                <a>8 perfiles</a> 
               </div>
             </div>
             <button className='adConfirmar' onClick={fetchNuevoTipo}>Aplicar cambios</button>

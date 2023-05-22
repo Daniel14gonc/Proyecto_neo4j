@@ -113,3 +113,11 @@
     position: absolute;
     z-index: 999;
 }
+
+.rating{
+    background-color: transparent;
+    border: 0px;
+    text-align: center;
+    border-bottom: 2px solid white;
+    outline: none;
+}

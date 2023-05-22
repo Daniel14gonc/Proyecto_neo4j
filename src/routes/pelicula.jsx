@@ -26,7 +26,7 @@ const Pelicula = () => {
     const [megust,setMegust] = React.useState(false)
     const [anun, setAnun] = React.useState(false)
     const interval = useRef(null)
-    const tipo = useRef(null)
+    const rating = useRef(null)
     const [anuncio,setAnuncio] = React.useState(null)
 
     const imagen = window.sessionStorage.getItem('pelicula')
@@ -53,7 +53,8 @@ const Pelicula = () => {
             body: JSON.stringify({
                 "username": user,
                 "title": nombre,
-                "finished": true
+                "finished": true,
+                "rating": rating.current
             })
         })
         navigate('/home')
@@ -128,6 +129,18 @@ const Pelicula = () => {
             </div>
             <div className='buttonholderc'>
                 <div className={megust ? 'liked' : 'disliked'} onClick={likeMovie}></div>
+                <input type="text" placeholder={"Rating"} className={'rating'}
+                onKeyPress={(e) => {
+                        const charCode = e.which ? e.which : e.keyCode;
+                        const value = e.target.value + String.fromCharCode(charCode);
+                        const regex = /^([0-4](\.[0-9]?)?|5(\.0?)?)$/; // Expresión regular para validar el rango
+                        if (!regex.test(value)) {
+                        e.preventDefault(); // Evitar la entrada del carácter no válido
+                        }
+                        onchange = (e) => {
+                            rating.current = e.target.value
+                        }
+                    }}/>
                 <button className='completado' onClick={() => terminado()} >Completado</button>
             </div>
         </div>
