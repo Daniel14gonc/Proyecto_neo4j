@@ -7,6 +7,17 @@
     align-items: center;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent;
+
+}
+
 .headerPelicula {
     height: 100px;
     width: 100%;
@@ -58,8 +69,8 @@
     background-image: url('../assets/faved.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    height: 50px;
-    width: 50px;
+    height: 30px;
+    width: 30px;
     cursor: pointer;
     
 }
@@ -67,8 +78,8 @@
     background-image: url('../assets/favoritito.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    height: 50px;
-    width: 50px;
+    height: 30px;
+    width: 30px;
     cursor: pointer;
 }
 

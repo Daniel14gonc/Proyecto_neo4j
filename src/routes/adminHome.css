@@ -1,246 +1,51 @@
 .adminContainer {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
     width: 100vw;
-    overflow-x: hidden;
-    background-color: #303030;
-}
-
-.adminHeader {
-    width: 100%;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.52) 30%, rgba(0, 0, 0, 0));
-    position: fixed;
-    top: 0px;
-}
-
-.adminbubble{
-    background-image: url('../../assets/perfil.png');
-    background-size: 100%;
-    background-repeat: no-repeat;
-    flex-grow: 2;
-    width: 50px;
-    height: 50px;
-    margin-left: 50px;
-    cursor: pointer;
-}
-
-.adminswitch {
-    height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 14px;
-    cursor: pointer;
-    color: white;
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-  
-  .admindropdown {
-    background-color: black;
-    position: absolute;
-    display: flex;
+    height: 100vh;
+    background-color: #000000;
     flex-direction: column;
-    margin-top: 230px;
-    margin-left: 50px;
-    width: 125px;
-    border-radius: 10px;
-    opacity: 0.9;
-  }
-
-  .adminBody{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1;
-    width: 100%;
-    background-color: #303030;
-  }
-
-  .pestanas{
-    display: flex;
-    flex-direction: row;
-    color: white;
-    justify-content: space-between;
-    width: 700px;
-  }
-
-  .pestanas *:hover{
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
-  ol {
-    margin: 0 0 1.5em;
-    padding: 0;
-    counter-reset: item;
-  }
-  
-  ol > li {
-    margin: 0;
-    padding: 0 0 0 2em;
-    text-indent: -2em;
-    list-style-type: none;
-    counter-increment: item;
-  }
-  
-  ol > li:before {
-    display: inline-block;
-    width: 1em;
-    padding-right: 0.5em;
-    font-weight: bold;
-    text-align: right;
-    content: counter(item) ".";
-  }
-
-
-  .botonBaja {
-    background-color: orange;
-    width: 100px;
-    height: 30px;
-    border: 0px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  .botonActivo{
-    background-color: rgb(81, 209, 8);
-    width: 100px;
-    height: 30px;
-    border: 0px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  .botonEdit {
-    background-color: #5ea3db;
-    width: 100px;
-    height: 30px;
-    border: 0px;
-    border-radius: 10px;
-    cursor: pointer;
-    cursor: pointer;
-  }
-
-  table, th, td {
-    border: 1px  rgb(134, 130, 130);
-    border-collapse: collapse;
-    border-style: solid none solid none;
-  }
-
-  table {
-    width: 70%;
-    border: 1px solid rgb(134, 130, 130);
-  }
-
-  th {
-    height: 50px;
-    background-color: rgb(134, 130, 130);
-    color: black;
-    cursor: default;
-  }
-
-  td {
-    text-align: center;
-    padding: 10px;
-    background-color: rgb(224, 218, 218);
-    cursor: default;
-  }
-
-  .titulos {
-    width: 65%;
-    padding: 30px;
-    margin-top: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-  }
-
-  .botonEliminar {
-    background-color: #db5e5e;
-    width: 100px;
-    height: 30px;
-    border: 0px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  .inputStar{
-    border-radius: 5px;
-    height: 20px;
-    font-size: 15px;
-    cursor: pointer;
-  }
-
-  .selectAnunciante {
-    border-radius: 10px;
-    padding: 5px;
-  }
-
-  .Title {
-    display: flex;
-    width: 400px;
-    align-items: center;
-    align-self: flex-start;
-    margin-left: 15%;
-    width: 70%;
-  }
-
-  .Title h1:first-child{
-    color: white;
-    text-align: center;
-  }
-
-  .Title button:nth-child(2){
-    height: 30px;
-    border-radius: 10px;
-    background-color: rgb(53, 129, 9);
-    border: 1px solid black;
-    margin-left: 30px;
-    margin-top: 5px;
-    cursor: pointer;
-  }
-
-  .TitleS{
-    display: flex;
-    width: 400px;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .TitleS h1:first-child{
-    color: white;
-    text-align: center;
-  }
-
-.reporte{
-  background-color: rgb(224, 218, 218);
-  width: 75%;
-  margin-bottom: 15px;
-  border-radius: 10px;
 }
-.fechas{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 2rem;
 }
-.fecha{
-  margin-right: 50px;
+.adminMenu{
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
 }
-.confir{
-  margin-top: 40px;
-  width: 20%;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid black;
-  background-color: rgb(53, 129, 9);
-  cursor: pointer;
+
+.terminal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 45vh;
+  width: 55vw;
+  background-color: #303030;
+}
+
+.send{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #E50914;
+}
+
+.recibed{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 15vh;
+  width: 55vw;
+  background-color: #303030;
 }

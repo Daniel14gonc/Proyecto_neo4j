@@ -66,6 +66,15 @@ const fetchExplorar = async() =>{
   return await responseJson
 }
 
+const fetchSaga = async() =>{
+  const url ='http://127.0.0.1:5000/saga/'
+  const response = await fetch(url, {
+    method:'GET',
+  })
+  const responseJson = await response.json()
+  return await responseJson
+}
+
 const fetchFavoritos = async() =>{
   const url ='http://127.0.0.1:5000/api/favoritos'
   const response = await fetch(url, {
@@ -115,6 +124,15 @@ const Pelicula = ({nombre, link, imagen, isContent, go }) => {
   return (
     <div onClick={() => {goPelicula(link, nombre, navigate, go, imagen)}} className='pelicula' style={{backgroundImage:`url(${imagen})`, backgroundSize:'cover', backgroundRepeat:'no-repeat'}}>
       {isContent && <p style={{color:'white'}}>No hay películas aquí :(</p>}        
+    </div>
+  )
+}
+
+const Saga = ({nombre, change, link, imagen, isContent, go }) => {
+  const navigate = useNavigate()
+  return (
+    <div onClick={() => {change(nombre)}} className='pelicula' style={{backgroundImage:`url(${imagen})`, backgroundSize:'cover', backgroundRepeat:'no-repeat'}}>
+      {isContent && <p style={{color:'white'}}>No hay sagas aquí :(</p>}        
     </div>
   )
 }
@@ -173,6 +191,34 @@ const Carrousel = ({contenido, nombre, imagen}) => {
   }
 }
 
+const CarrouselSaga = ({contenido, nombre, imagen, changeSaga}) => {
+  if(contenido.length === 0){
+
+    return (
+      <div className='carrousel'>
+        <div style={{color:'white', fontSize:'18px'}}>{nombre}</div>
+        <div className='containMovies'>
+          <Saga go={false} imagen = '../../assets/nocontent.png' isContent={'si'}/>
+        </div>
+      </div>
+    )
+  } else {
+
+    return (
+      <div className='carrousel'>
+        <div style={{color:'white', fontSize:'18px'}}>{nombre}</div>
+        <div className='containMovies'>
+          {
+            contenido.map((elemento) => {
+              return (<Saga go={true} change = {changeSaga} nombre = {elemento.name} link ={null} imagen = {elemento.image}/>)
+            })
+          }
+        </div>
+      </div>
+    )
+  }
+}
+
 const Explorar = ({ allMovies }) => {
     if(allMovies.length===0){
       return (
@@ -192,6 +238,41 @@ const Explorar = ({ allMovies }) => {
       )
     }
     
+}
+
+const SagaMovies = ({ saga, name, favorite, changeFav }) => {
+
+  if (saga.length===0){
+    return (
+      <div className='saga-container'>
+        <div className='saga-header'>
+          <div className='saga-title'>{name}</div>
+          <div className={favorite ? 'star' : 'no-star'}>Corazon</div>
+        </div>
+        <div>Corazon</div>
+        <div className='sagas'>
+          <Pelicula go={false} imagen = '../../assets/nocontent.png' isContent={'si'} />
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div className='saga-container'>
+        <div className='saga-header'>
+          <div className='saga-title'>{name}</div>
+          <div onClick={() => {changeFav(name)}} className={favorite ? 'star' : 'no-star'}></div>
+        </div>
+        <div className='sagas'>
+          {
+            saga.map((element, index) => {
+              return (<Pelicula go={true} nombre={element.title} link={element.link} imagen={element.image} />)
+            })
+          }
+        </div>
+      </div>
+    )
+  }
+  
 }
 
 const Busqueda = ({ movies }) => {
@@ -250,16 +331,22 @@ const Home = () =>{
   const [seguirV, setSeguirV] = useState([])
   // const [menu, setMenu] = useState([{nombre:'Inicio', clicked: true}, {nombre:'Explorar', clicked: false}, {nombre:'Mi lista', clicked: false}])
   
-  const [menu, setMenu] = useState([{nombre:'Inicio', clicked: true}, {nombre:'Explorar', clicked: false}])
+  const [menu, setMenu] = useState([{nombre:'Inicio', clicked: true}, {nombre:'Explorar', clicked: false}, {nombre:'', clicked: false}])
 
   const [explorar, setExplorar] = useState([]) 
-  const [favorito, setFavorito] = useState([])     
+  const [favorito, setFavorito] = useState([])  
+  const [sagas, setSagas] = useState([])   
   const [change, setChange] = useState(false)    
   const [loading, setLoading] = useState(true)        
   const [buscar, setBuscar] = useState(false)     
   const [search, setSearch] = useState(false)  
   const[searchResult, setSearchResult] = useState([]) 
-  const[text, setText] = useState('')            
+  const[text, setText] = useState('')
+
+  const [currentSagaMovies, setCurrentSagaMovies] = useState([])
+  
+  const saga = useRef(null)
+  const [fanOfCurrent, setFanOfCurrent] = useState(false)
 
   const click = (index) => {
     const oldMenu = [...menu]
@@ -309,24 +396,7 @@ const Home = () =>{
   }
 
   const cerrarSesion = async() => {
-    const user = JSON.parse(window.sessionStorage.getItem('user'))
-    const profile = JSON.parse(window.sessionStorage.getItem('perfil'))
-    const correo = user['correo']
-    const url = 'http://127.0.0.1:5000/api/perfiles'
-    const response = await fetch(url, {
-        method:'PUT',
-        headers:{
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            'correo': correo,
-            'nombre': profile.nombre,
-            'dentro' : 'false'
-        })
-    })
-
-    const responseJson = await response.json()
-    window.sessionStorage.clear()
+    window.localStorage.clear()
     navigate('/')
   }
 
@@ -343,6 +413,23 @@ const Home = () =>{
     navigate('/')
   }
 
+  const handlerFav = async(saga) => {
+    const user = window.localStorage.getItem('user')
+    const url = 'http://localhost:5000/fan-of/'
+    const response = await fetch(url, {
+      method:'PUT',
+      headers:{
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'user': user,
+        'saga': saga
+      })
+    })
+
+    setFanOfCurrent(!fanOfCurrent)
+  }
+
   const busqueda = () => {
     const oldMenu = [...menu]
     oldMenu[0].clicked = true
@@ -351,6 +438,36 @@ const Home = () =>{
 
   const onChange = (event) => {
     setText(event.target.value)
+  }
+
+  const sagaHandler = async (newValue) => {
+    const user = window.localStorage.getItem('user')
+    saga.current = newValue
+    let url = 'http://localhost:5000/fan-of/'
+    let response = await fetch(url, {
+      method:'GET',
+      headers: {
+        'user' : user,
+        'saga': newValue
+      }
+    })
+
+    let responseJson = await response.json()
+    setFanOfCurrent(responseJson['exists'])
+
+    url = 'http://localhost:5000/saga-movies/'
+    response = await fetch(url, {
+        method:'GET',
+        headers:{
+            'Content-Type': 'application/json',
+            'saga': saga.current
+        }
+    })
+
+    responseJson = await response.json()
+    // console.log(responseJson)
+    setCurrentSagaMovies(responseJson)
+    click(2)
   }
 
   const fetchPeliculas = async(event) => {
@@ -400,6 +517,9 @@ const Home = () =>{
   
         const response4 = await fetchExplorar()
         setExplorar(response4)
+
+        const response5 = await fetchSaga()
+        setSagas(response5)
   
         // const response5 = await fetchFavoritos()
         // setFavorito(response5)
@@ -432,6 +552,7 @@ const Home = () =>{
           menu[0].clicked &&
           <Fragment>
             <BigFilm image={random.image} link={random.link} nombre={random.Title}/>
+            <CarrouselSaga nombre = 'Sagas' contenido = {sagas} changeSaga = {sagaHandler}/>
             <Carrousel nombre = 'Sugerido' contenido = {sugerido}/>
             <Carrousel nombre = 'Seguir viendo' contenido = {seguirV}/>
             <Carrousel nombre = 'Ver nuevamente' contenido = {verdeNuevo}/>
@@ -440,6 +561,10 @@ const Home = () =>{
         {
           menu[1].clicked && 
           <Explorar allMovies={explorar} />
+        }
+        {
+          menu[2].clicked &&
+          <SagaMovies saga = {currentSagaMovies} name = {saga.current} favorite = {fanOfCurrent} changeFav = {handlerFav}/>
         }
         
       </div>
