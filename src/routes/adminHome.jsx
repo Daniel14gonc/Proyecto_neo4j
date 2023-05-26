@@ -8,6 +8,12 @@ const AdminHome = () => {
     const [query, setQuery] = useState('')
     
     const MakeQuery = async() =>{
+
+        if (query === '') {
+            setResultado('Query vacío')
+            return
+        }
+
         const url = 'http://localhost:5000/admin/'
         const response = await fetch(url, {
         method:'GET',
@@ -17,7 +23,8 @@ const AdminHome = () => {
         })
 
         const responseJson = await response.json()
-        setResultado(responseJson)
+        console.log(responseJson)
+        setResultado(responseJson.message)
     }
 
 

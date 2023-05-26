@@ -28,10 +28,12 @@ const Pelicula = () => {
     const interval = useRef(null)
     const rating = useRef(null)
     const [anuncio,setAnuncio] = React.useState(null)
+    const [mostrar, setMostrar] = React.useState(false)
 
     const imagen = window.sessionStorage.getItem('pelicula')
     const link = window.sessionStorage.getItem('link')
-    const nombre = window.sessionStorage.getItem('nombre')
+    const nombre = window.localStorage.getItem('nombre')
+    console.log(nombre)
     
 
     const regreso = () => {
@@ -45,6 +47,7 @@ const Pelicula = () => {
     const terminado = () => {
         const url = 'http://localhost:5000/watched-movie/'
         const user = window.localStorage.getItem('user')
+
         const response = fetch(url, {
             method:'PUT',
             headers:{
@@ -77,6 +80,7 @@ const Pelicula = () => {
       
         const responseJson = await response.json()
         console.log(responseJson)
+        setMostrar(true)
         return await responseJson
     }
 
@@ -109,9 +113,12 @@ const Pelicula = () => {
                 'movie': nombre
             }
         })
-
+        
         const res = await todos.json()
+        console.log(res)
         await setMegust(res.liked)
+        rating.current = res.rating
+
     }
     favoritito()
     },[])
@@ -127,9 +134,10 @@ const Pelicula = () => {
                     <div></div>
                 </a>
             </div>
+            { mostrar &&
             <div className='buttonholderc'>
                 <div className={megust ? 'liked' : 'disliked'} onClick={likeMovie}></div>
-                <input type="text" placeholder={"Rating"} className={'rating'}
+                <input type="text" placeholder={"Rating"} className={'rating'} defaultValue={rating.current}
                 onKeyPress={(e) => {
                         const charCode = e.which ? e.which : e.keyCode;
                         const value = e.target.value + String.fromCharCode(charCode);
@@ -142,7 +150,7 @@ const Pelicula = () => {
                         }
                     }}/>
                 <button className='completado' onClick={() => terminado()} >Completado</button>
-            </div>
+            </div>}
         </div>
     )
 }

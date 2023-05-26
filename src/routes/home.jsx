@@ -154,7 +154,7 @@ const goPelicula = (link, nombre, navigate, go, imagen) => {
   if (go) {
     window.sessionStorage.setItem('link', link)
     window.sessionStorage.setItem('pelicula', imagen)
-    window.sessionStorage.setItem('nombre', nombre)
+    window.localStorage.setItem('nombre', nombre)
     navigate('/pelicula')
   }
 }
@@ -231,7 +231,7 @@ const Explorar = ({ allMovies }) => {
         <div className='explorar'>
           {
             allMovies.map((element, index) => {
-              return (<Pelicula go={true} nombre={element.title} link={element.link} imagen={element.image} />)
+              return (<Pelicula go={true} nombre={element.Title} link={element.link} imagen={element.image} />)
             })
           }
         </div>
@@ -265,7 +265,7 @@ const SagaMovies = ({ saga, name, favorite, changeFav }) => {
         <div className='sagas'>
           {
             saga.map((element, index) => {
-              return (<Pelicula go={true} nombre={element.title} link={element.link} imagen={element.image} />)
+              return (<Pelicula go={true} nombre={element.Title} link={element.link} imagen={element.image} />)
             })
           }
         </div>
