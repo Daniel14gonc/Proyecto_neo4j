@@ -8,8 +8,12 @@ import YouTube from 'react-youtube'
 
 const fetchSugerido = async() =>{
   const url = 'http://127.0.0.1:5000/suggested-movie/'
+  const user = window.localStorage.getItem('user')
   const response = await fetch(url, {
-    method:'GET'
+    method:'GET',
+    headers: {
+      'user' : user
+    }
   })
       
   const responseJson = await response.json()
@@ -247,9 +251,8 @@ const SagaMovies = ({ saga, name, favorite, changeFav }) => {
       <div className='saga-container'>
         <div className='saga-header'>
           <div className='saga-title'>{name}</div>
-          <div className={favorite ? 'star' : 'no-star'}>Corazon</div>
+          <div className={favorite ? 'star' : 'no-star'}></div>
         </div>
-        <div>Corazon</div>
         <div className='sagas'>
           <Pelicula go={false} imagen = '../../assets/nocontent.png' isContent={'si'} />
         </div>

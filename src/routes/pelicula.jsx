@@ -44,11 +44,11 @@ const Pelicula = () => {
         navigate('/home')
     }
 
-    const terminado = () => {
+    const terminado = async () => {
         const url = 'http://localhost:5000/watched-movie/'
         const user = window.localStorage.getItem('user')
 
-        const response = fetch(url, {
+        const response = await fetch(url, {
             method:'PUT',
             headers:{
                 'Content-Type': 'application/json'
@@ -60,6 +60,8 @@ const Pelicula = () => {
                 "rating": rating.current
             })
         })
+
+        const responseJson = await response.json()
         navigate('/home')
     }
 
