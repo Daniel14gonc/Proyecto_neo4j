@@ -26,7 +26,7 @@ const Pelicula = () => {
     const [megust,setMegust] = React.useState(false)
     const [anun, setAnun] = React.useState(false)
     const interval = useRef(null)
-    const rating = useRef(null)
+    const rating = useRef('')
     const [anuncio,setAnuncio] = React.useState(null)
     const [mostrar, setMostrar] = React.useState(false)
 
@@ -119,6 +119,8 @@ const Pelicula = () => {
         const res = await todos.json()
         console.log(res)
         await setMegust(res.liked)
+        console.log(res.started)
+        await setMostrar(res.started)
         rating.current = res.rating
 
     }

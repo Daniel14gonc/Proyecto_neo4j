@@ -1,0 +1,46 @@
+.container-modal {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    background-color: rgba(60, 60, 60, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    height: 400px;
+    width: 600px;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5%;
+}
+
+.modal-content2 {
+    height: 300px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 25px;
+}
+
+.exit {
+    background-image: url('../assets/delete.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    align-self: flex-end;
+    justify-self: flex-start;
+    margin-right: 25px;
+    margin-bottom: 25px;
+}

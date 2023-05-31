@@ -18,7 +18,7 @@ const AdminHome = () => {
         const response = await fetch(url, {
         method:'GET',
         headers: {
-            'query' : query,
+            'query' : query.replace(/\n/g, ' ')
         }
         })
 

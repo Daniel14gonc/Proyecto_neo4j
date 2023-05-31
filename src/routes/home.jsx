@@ -3,7 +3,7 @@ import { useState, useEffect, Fragment, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './home.css'
 import YouTube from 'react-youtube'
-
+import Modal from './modal'
 
 
 const fetchSugerido = async() =>{
@@ -244,7 +244,7 @@ const Explorar = ({ allMovies }) => {
     
 }
 
-const SagaMovies = ({ saga, name, favorite, changeFav }) => {
+const SagaMovies = ({ saga, name, favorite, changeFav, fav, setFavorite }) => {
 
   if (saga.length===0){
     return (
@@ -263,8 +263,9 @@ const SagaMovies = ({ saga, name, favorite, changeFav }) => {
       <div className='saga-container'>
         <div className='saga-header'>
           <div className='saga-title'>{name}</div>
-          <div onClick={() => {changeFav(name)}} className={favorite ? 'star' : 'no-star'}></div>
+          <div onClick={async () => {await changeFav(name); if (favorite === false)setFavorite(true) }} className={favorite ? 'star' : 'no-star'}></div>
         </div>
+        { fav && <Modal sagaName={name} close = {() => setFavorite(false)}/> }
         <div className='sagas'>
           {
             saga.map((element, index) => {
@@ -345,6 +346,7 @@ const Home = () =>{
   const [search, setSearch] = useState(false)  
   const[searchResult, setSearchResult] = useState([]) 
   const[text, setText] = useState('')
+  const [favorite, setFavorite] = useState(false)
 
   const [currentSagaMovies, setCurrentSagaMovies] = useState([])
   
@@ -429,8 +431,22 @@ const Home = () =>{
         'saga': saga
       })
     })
-
+    let responseJson = await response.json()
     setFanOfCurrent(!fanOfCurrent)
+  }
+
+  const getFav = async(saga) => {
+    const user = window.localStorage.getItem('user')
+    const url = 'http://localhost:5000/liked-movies/'
+    const response = await fetch(url, {
+      method:'GET',
+      headers:{
+          'Content-Type': 'application/json',
+          'user': user,
+      }
+    })
+    let responseJson = await response.json()
+    return await responseJson
   }
 
   const busqueda = () => {
@@ -456,6 +472,7 @@ const Home = () =>{
     })
 
     let responseJson = await response.json()
+    console.log(responseJson)
     setFanOfCurrent(responseJson['exists'])
 
     url = 'http://localhost:5000/saga-movies/'
@@ -523,6 +540,9 @@ const Home = () =>{
 
         const response5 = await fetchSaga()
         setSagas(response5)
+
+        const response6 = await getFav()
+        setFavorito(response6)
   
         // const response5 = await fetchFavoritos()
         // setFavorito(response5)
@@ -559,6 +579,7 @@ const Home = () =>{
             <Carrousel nombre = 'Sugerido' contenido = {sugerido}/>
             <Carrousel nombre = 'Seguir viendo' contenido = {seguirV}/>
             <Carrousel nombre = 'Ver nuevamente' contenido = {verdeNuevo}/>
+            <Carrousel nombre = 'Tus peliculas favoritas' contenido = {favorito}/>
           </Fragment>
         }
         {
@@ -567,7 +588,7 @@ const Home = () =>{
         }
         {
           menu[2].clicked &&
-          <SagaMovies saga = {currentSagaMovies} name = {saga.current} favorite = {fanOfCurrent} changeFav = {handlerFav}/>
+          <SagaMovies fav = {favorite} setFavorite = {setFavorite} saga = {currentSagaMovies} name = {saga.current} favorite = {fanOfCurrent} changeFav = {handlerFav}/>
         }
         
       </div>
