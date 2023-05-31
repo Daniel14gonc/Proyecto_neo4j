@@ -579,7 +579,7 @@ const Home = () =>{
             <Carrousel nombre = 'Sugerido' contenido = {sugerido}/>
             <Carrousel nombre = 'Seguir viendo' contenido = {seguirV}/>
             <Carrousel nombre = 'Ver nuevamente' contenido = {verdeNuevo}/>
-            <Carrousel nombre = 'Tus peliculas favoritas' contenido = {favorito}/>
+            <Carrousel nombre = 'Tus películas favoritas' contenido = {favorito}/>
           </Fragment>
         }
         {
